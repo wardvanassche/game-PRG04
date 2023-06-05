@@ -1,21 +1,52 @@
-import { Actor, Vector } from "excalibur"
+import { Actor, Engine, Vector, GraphicsGroup, Input } from "excalibur";
 import { Resources, ResourceLoader } from "./resources.js";
 
-export class Background extends Actor {
+export class ScrollingBackground extends Actor{
 
-    constructor(posX, posY) {
-        super();
+    offset
 
-        this.graphics.use(Resources.Background.toSprite())
-        this.pos = new Vector(posX, posY)
-        this.vel = new Vector(0, 600)
+    constructor() {
+        super()
     }
 
     onInitialize(engine) {
-        this.on("exitviewport", (event) => this.resetPosition())
+        let scrollImage = Resources.Background.toSprite()
+        this.offset = scrollImage.width
+
+        const group = new GraphicsGroup({
+            members: [
+                {
+                    graphic: scrollImage,
+                    pos: new Vector(0, 0)
+                },
+                {
+                    graphic: scrollImage,
+                    pos: new Vector(scrollImage.width, 0)
+                },
+                {
+                    graphic: scrollImage,
+                    pos: new Vector(scrollImage.width*2, 0)
+                }
+            ]
+        })
+
+        this.graphics.anchor = new Vector(0, 0)
+        this.graphics.add(group)
+        this.pos = new Vector(0, 0)
+        this.vel = new Vector(-300, 0)
     }
 
-    resetPosition() {
-        this.pos = new Vector(640, -300)  
+    onPreUpdate(engine) {
+        let kb = engine.input.keyboard
+
+        if (engine.input.keyboard.wasPressed(Input.Keys.Space)) {
+            this.vel = new Vector(-100, 0)
+        }
+    }
+
+    onPostUpdate(engine) {
+        if (this.pos.x < -this.offset) {
+            this.pos = new Vector(0, 0)
+        }
     }
 }

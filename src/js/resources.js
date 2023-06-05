@@ -1,7 +1,7 @@
 import { ImageSource, Sound, Resource, Loader } from "excalibur";
 import backgroundImage from "../images/background.jpeg"
-import carImage from "../images/performante.png";
-import obstacleImage from "../images/oma.png";
+import carImage from "../images/car1.png"
+import obstacleImage from "../images/car2.png"
 
 const Resources = { 
   Background: new ImageSource(backgroundImage),

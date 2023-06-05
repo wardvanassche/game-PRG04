@@ -1,14 +1,15 @@
-import { Actor } from "excalibur";
+import { Actor, Engine, Vector } from "excalibur";
+import { Resources } from "./resources.js";
 
 export class Obstacle extends Actor {
-
+    
     constructor() {
-        super();
-
-        this.graphics.use(Resources.Obstacle.toSprite())
-        this.width = Resources.Obstacle.width
-        this.height = Resources.Obstacle.height
+        super()
+        let obstacleImage = Resources.Obstacle.toSprite()
+        this.graphics.add(obstacleImage)
+        this.anchor = new Vector(0, 0)
+        this.pos = new Vector(1000 , 250)
+        this.scale = new Vector(0.15, 0.15)
+        this.vel = new Vector(-500, 0)
     }
-
-
 }
