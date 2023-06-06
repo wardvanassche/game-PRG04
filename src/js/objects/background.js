@@ -1,5 +1,5 @@
 import { Actor, Engine, Vector, GraphicsGroup, Input } from "excalibur";
-import { Resources, ResourceLoader } from "./resources.js";
+import { Resources, ResourceLoader } from "../resources.js";
 
 export class ScrollingBackground extends Actor{
 

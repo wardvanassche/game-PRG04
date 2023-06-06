@@ -1,26 +1,22 @@
-import '../css/style.css'
-import { Actor, Engine, Vector } from "excalibur"
-import { Resources, ResourceLoader } from './resources.js'
-import { ScrollingBackground } from './background.js'
-import { Car } from './car.js'
-import { Obstacle } from './obstacle.js'
+import { Engine, DisplayMode } from "excalibur"
+import { ResourceLoader } from "./resources.js";
+import { Startscherm } from "./scenes/startscherm"
+import { Level1 } from './scenes/level1'
+import { GameOver } from './scenes/gameover.js'
 
 export class Game extends Engine {
 
-    constructor() {
-        super({ width: 800, height: 600 })
-        this.start(ResourceLoader).then(() => this.startGame())
-    }
+  constructor(){
+    super({ width: 800, height: 600, displayMode: DisplayMode.FitScreen });
+    this.start(ResourceLoader).then(() => this.startGame())
+  }
 
-    startGame() {
-      const background = new ScrollingBackground();
-      const car = new Car();
-      const obstacle = new Obstacle();
+  startGame(){
+      this.add('Level1', new Level1());
 
-      this.add(background);
-      this.add(car);
-      this.add(obstacle);
-    }
+      this.goToScene('Level1')
+
+  }
 }
 
-new Game()
+new Game();

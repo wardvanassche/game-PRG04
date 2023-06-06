@@ -1,10 +1,15 @@
 import { Actor, Vector, Input } from "excalibur";
-import { Resources } from "./resources.js";
+import { Resources } from "../resources.js";
+import { Obstacle } from "./obstacle.js"
+import { Level1 } from "../scenes/level1.js";
 
 export class Car extends Actor {
     
     constructor() {
-        super()
+        super({ 
+            width: Resources.Car.width, 
+            height: Resources.Car.height,
+        })
     }
 
     onInitialize(engine) {
@@ -13,6 +18,14 @@ export class Car extends Actor {
         this.anchor = new Vector(0, 0)
         this.pos = new Vector(30, 250)
         this.scale = new Vector(0.1, 0.1)
+        this.on('collisionstart', (event) => this.hitSomething(event))
+    }
+
+    hitSomething(event){
+        if (event.other instanceof Obstacle) {
+            console.log('hit');
+            this.kill();
+        }
     }
 
     onPreUpdate(engine) {
