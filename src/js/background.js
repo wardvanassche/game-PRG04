@@ -1,5 +1,5 @@
 import { Actor, Engine, Vector, GraphicsGroup, Input } from "excalibur";
-import { Resources, ResourceLoader } from "../resources.js";
+import { Resources, ResourceLoader } from "./resources.js";
 
 export class ScrollingBackground extends Actor{
 
@@ -26,6 +26,10 @@ export class ScrollingBackground extends Actor{
                 {
                     graphic: scrollImage,
                     pos: new Vector(scrollImage.width*2, 0)
+                },
+                {
+                    graphic: scrollImage,
+                    pos: new Vector(scrollImage.width*3, 0)
                 }
             ]
         })
@@ -34,14 +38,6 @@ export class ScrollingBackground extends Actor{
         this.graphics.add(group)
         this.pos = new Vector(0, 0)
         this.vel = new Vector(-300, 0)
-    }
-
-    onPreUpdate(engine) {
-        let kb = engine.input.keyboard
-
-        if (engine.input.keyboard.wasPressed(Input.Keys.Space)) {
-            this.vel = new Vector(-100, 0)
-        }
     }
 
     onPostUpdate(engine) {
